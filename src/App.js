@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import Content from "./components/Content";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
