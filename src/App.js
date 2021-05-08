@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Content from "./components/Content";
-import Hero from "./components/Hero";
-import Navbar from "./components/Navbar";
-import Modal from "./components/Modal";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { UserProvider } from "./contexts/UserProvider";
+import Home from "./components/Home";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <>
-      <Modal isModalOpen={isModalOpen} closeModal={closeModal} />
-      <Navbar showModal={showModal} />
-      <Hero showModal={showModal} />
-      {/* list of articles written by people will be shown here */}
-      <Content />
+      <UserProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+          </Switch>
+        </Router>
+      </UserProvider>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Hero = ({ showModal }) => {
+const Hero = ({ showSignUpModal }) => {
   return (
     <div className="bg-yellow-400 border-b-1 border-black">
       <div className="w-5/6 m-auto md:w-3/4">
@@ -12,7 +12,7 @@ const Hero = ({ showModal }) => {
             Read and share new perspectives on just about any topic. Everyone's
             welcome.
             <p
-              onClick={showModal}
+              onClick={showSignUpModal}
               className="mt-8 mb-10 py-1 px-2 text-center w-2/6 md:w-1/4 rounded-3xl text-base border-1 border-black cursor-pointer"
             >
               Get Started
