@@ -4,6 +4,7 @@ import { UserProvider } from "./contexts/UserProvider";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import WriteStory from "./components/Profile/WriteStory";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute path="/profile/write" component={WriteStory} />
           </Switch>
         </Router>
       </UserProvider>
