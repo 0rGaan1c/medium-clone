@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SignInModal from "./Home/SignInModal";
 import SignUpModal from "./Home/SignUpModal";
 import Hero from "./Home/Hero";
@@ -9,15 +9,17 @@ import { UserContext } from "../contexts/UserProvider";
 const Home = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [showModals, setShowModals] = useState(false);
 
   const { currentUser } = useContext(UserContext);
-  if (currentUser) {
-    const { displayName, email } = currentUser;
-    console.log(displayName, email);
-    console.log("yes, finally");
-  } else {
-    console.log("no, finally");
-  }
+
+  useEffect(() => {
+    if (currentUser) {
+      setShowModals(false);
+    } else {
+      setShowModals(true);
+    }
+  }, [currentUser]);
 
   const showSignUpModal = () => {
     setIsSignUpModalOpen(true);
@@ -37,16 +39,20 @@ const Home = () => {
 
   return (
     <>
-      <SignInModal
-        isSignInModalOpen={isSignInModalOpen}
-        closeSignInModal={closeSignInModal}
-        showSignUpModal={showSignUpModal}
-      />
-      <SignUpModal
-        isSignUpModalOpen={isSignUpModalOpen}
-        closeSignUpModal={closeSignUpModal}
-        showSignInModal={showSignInModal}
-      />
+      {showModals ? (
+        <SignInModal
+          isSignInModalOpen={isSignInModalOpen}
+          closeSignInModal={closeSignInModal}
+          showSignUpModal={showSignUpModal}
+        />
+      ) : null}
+      {showModals ? (
+        <SignUpModal
+          isSignUpModalOpen={isSignUpModalOpen}
+          closeSignUpModal={closeSignUpModal}
+          showSignInModal={showSignInModal}
+        />
+      ) : null}
       <Navbar
         showSignUpModal={showSignUpModal}
         showSignInModal={showSignInModal}

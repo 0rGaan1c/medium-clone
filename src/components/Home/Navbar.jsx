@@ -20,7 +20,6 @@ const Navbar = ({ showSignUpModal, showSignInModal }) => {
         left,
       } = imageRef.current.getBoundingClientRect();
 
-      console.log(imageRef.current.getBoundingClientRect());
       setPosition({ x, y, width, height, right, left });
     }
   };
@@ -54,7 +53,7 @@ const Navbar = ({ showSignUpModal, showSignInModal }) => {
               className="mr-8 cursor-pointer hidden md:inline"
               onClick={showSignUpModal}
             >
-              Write
+              <Link to="/profile"> Write</Link>
             </li>
             <div ref={imageRef} onClick={onProfileClick}>
               <img
@@ -84,7 +83,7 @@ const Navbar = ({ showSignUpModal, showSignInModal }) => {
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
                 role="menuitem"
               >
-                Account settings
+                Profile
               </Link>
               <div
                 className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"

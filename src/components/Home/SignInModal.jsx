@@ -1,18 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FaGoogle, FaTimes } from "react-icons/fa";
 import { signInWithGoogle } from "../../services/firebase";
-import { UserContext } from "../../contexts/UserProvider";
 
 const SignInModal = ({
   isSignInModalOpen,
   closeSignInModal,
   showSignUpModal,
 }) => {
-  const { currentUser } = useContext(UserContext);
-  if (currentUser) {
-    closeSignInModal();
-  }
-
   return (
     <div
       className={
