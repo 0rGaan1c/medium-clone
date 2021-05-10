@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef } from "react";
 import { UserContext } from "../../contexts/UserProvider";
 import { Link } from "react-router-dom";
 import { db } from "../../services/firebase";
+import firebase from "firebase/app";
 
 const WriteStory = () => {
   const [titleRing, setTitleRing] = useState("focus:ring");
@@ -14,14 +15,18 @@ const WriteStory = () => {
   const storyRef = useRef(null);
 
   const handlePublishClick = () => {
-    if (titleRef.current.value === "") {
+    const title = titleRef.current.value;
+    const story = storyRef.current.value;
+    const name = currentUser.displayName;
+
+    if (title === "") {
       setTitleRing("ring ring-red-500");
       setTimeout(() => {
         setTitleRing("focus:ring");
       }, 3000);
       return;
     }
-    if (storyRef.current.value === "") {
+    if (story === "") {
       setStoryRing("ring ring-red-500");
       setTimeout(() => {
         setStoryRing("focus:ring");
@@ -30,26 +35,52 @@ const WriteStory = () => {
     }
 
     // personal user blogs
-    db.collection("users")
-      .add({
-        email: currentUser.email,
-        name: currentUser.displayName,
-        title: titleRef.current.value,
-        story: storyRef.current.value,
-      })
-      .then((docRef) => {
-        console.log("Document written with id: ", docRef.id);
-      })
-      .catch((error) => {
-        console.log("Error adding document: ", error);
-      });
+    // db.collection("users")
+    //   .add({
+    //     [currentUser.email]: [
+    //       {
+    //         name: currentUser.displayName,
+    //         title: titleRef.current.value,
+    //         story: storyRef.current.value,
+    //       },
+    //     ],
+    //   })
+    //   .then((docRef) => {
+    //     console.log("Document written with id: ", docRef.id);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error adding document: ", error);
+    //   });
+
+    // array thing -- it's working, meaning data is stored as I want it
+    // only reading remians
+    const docRef = db.collection("users").doc(currentUser.email);
+
+    docRef.get().then((doc) => {
+      if (doc.exists) {
+        console.log("Exists");
+        docRef.update({
+          stories: firebase.firestore.FieldValue.arrayUnion({ title, story }),
+        });
+      } else {
+        docRef.set({
+          name,
+          stories: [
+            {
+              title,
+              story,
+            },
+          ],
+        });
+      }
+    });
 
     // all blogs for the main page
     db.collection("allStories")
       .add({
-        name: currentUser.displayName,
-        title: titleRef.current.value,
-        story: storyRef.current.value,
+        name,
+        title,
+        story,
       })
       .then((docRef) => {
         console.log("docRef: ", docRef.id);
