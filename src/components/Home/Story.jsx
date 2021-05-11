@@ -69,7 +69,7 @@ const Story = ({
         <div className="mx-auto w-11/12">
           <h1 className="text-2xl font-bold">{title}</h1>
           <p className="text-sm text-gray-400 -mt-2">@{name}</p>
-          <p className="text-sm mt-4">{state.story}</p>
+          <p className="text-sm mt-4 mb-4">{state.story}</p>
         </div>
       </div>
     </>

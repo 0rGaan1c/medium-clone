@@ -9,14 +9,6 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      // if (user) {
-      //   const { displayName, email } = user;
-      //   setLoading(false);
-      //   setCurrentUser({
-      //     displayName,
-      //     email,
-      //   });
-      // }
       setCurrentUser(user);
       setLoading(false);
     });

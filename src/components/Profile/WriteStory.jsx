@@ -89,16 +89,14 @@ const WriteStory = () => {
         console.log("Error adding document: ", error);
       });
 
-    console.log(titleRef.current.value);
     titleRef.current.value = "";
 
-    console.log(storyRef.current.value);
     storyRef.current.value = "";
 
     setIsPublished(true);
     setTimeout(() => {
       setIsPublished(false);
-    }, 2000);
+    }, 1000);
   };
 
   return (

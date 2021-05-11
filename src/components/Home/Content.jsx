@@ -18,8 +18,14 @@ const Content = () => {
       });
   }, []);
 
-  if (stories) {
-    console.log(stories);
+  if (stories.length === 0) {
+    return (
+      <>
+        <h1 className="mt-8 text-center md:mx-auto text-2xl font-bold md: mb-8 md:w-2/4">
+          No stories to Read
+        </h1>
+      </>
+    );
   }
   return (
     <>
@@ -41,7 +47,7 @@ const Content = () => {
                 },
               }}
             >
-              <div className="w-11/12 mx-auto bg-white rounded-1xl shadow-xl rounded-lg hover:shadow-2xl mb-6 justify-between p-2 cursor-pointer md:w-2/4">
+              <div className="w-11/12 mx-auto bg-white shadow-xl rounded-lg hover:shadow-2xl mb-6 justify-between p-2 cursor-pointer md:w-2/4">
                 <div className="text-lg font-bold">{title}</div>
                 <div className="-mt-2 text-sm text-gray-400">@{name}</div>
                 <div className="mt-2 text-gray-700 md:mt-4">
