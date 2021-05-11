@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Blogs = () => {
+const UserStories = () => {
   return (
     <>
       <div className="mt-8 md:mt-16">
@@ -18,4 +18,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default UserStories;

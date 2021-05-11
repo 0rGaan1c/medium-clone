@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../services/firebase";
+import { Link } from "react-router-dom";
 
 const Content = () => {
   const [stories, setStories] = useState([]);
@@ -9,8 +10,9 @@ const Content = () => {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
+          const data = { ...doc.data() };
           setStories((prevState) => {
-            return [...prevState, doc.data()];
+            return [...prevState, data];
           });
         });
       });
@@ -22,17 +24,31 @@ const Content = () => {
   return (
     <>
       <div className="mt-8">
-        <div className="mb-4 w-11/12 mx-auto text-xl font-bold">
+        <div className="mb-4 w-11/12 mx-auto text-2xl font-bold md:mb-8 md:w-2/4">
           <h2>Read a Story</h2>
         </div>
-        {stories.map((stor) => {
+        {stories.map((stor, idx) => {
           const { name, title, story } = stor;
           return (
-            <div className="flex w-11/12 h-12 mx-auto bg-blue-500 mb-4 justify-between">
-              <div>{name}</div>
-              <div>{title}</div>
-              <div>{story}</div>
-            </div>
+            <Link
+              key={idx}
+              to={{
+                pathname: `/${name}/${title}`,
+                state: {
+                  name: name,
+                  title: title,
+                  story: story,
+                },
+              }}
+            >
+              <div className="w-11/12 mx-auto bg-white rounded-1xl shadow-xl rounded-lg hover:shadow-2xl mb-6 justify-between p-2 cursor-pointer md:w-2/4">
+                <div className="text-lg font-bold">{title}</div>
+                <div className="-mt-2 text-sm text-gray-400">@{name}</div>
+                <div className="mt-2 text-gray-700 md:mt-4">
+                  {story.substr(0, 100)}...
+                </div>
+              </div>
+            </Link>
           );
         })}
       </div>

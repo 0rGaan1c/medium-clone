@@ -1,12 +1,11 @@
 import React from "react";
 import ProfileNav from "./Profile/ProfileNav";
-import Blogs from "./Profile/Blogs";
-
+import UserStories from "./Profile/UserStories";
 const Profile = () => {
   return (
     <>
       <ProfileNav />
-      <Blogs />
+      <UserStories />
     </>
   );
 };

@@ -12,14 +12,8 @@ const ProfileNav = () => {
 
   const onProfileClick = () => {
     if (currentUser) {
-      const {
-        x,
-        y,
-        width,
-        height,
-        right,
-        left,
-      } = imageRef.current.getBoundingClientRect();
+      const { x, y, width, height, right, left } =
+        imageRef.current.getBoundingClientRect();
 
       setPosition({ x, y, width, height, right, left });
     }
@@ -29,7 +23,9 @@ const ProfileNav = () => {
     <nav className="border-b-1">
       <div className="flex py-6 mx-5 md:items-center md:m-auto md:py-6 md:w-3/4">
         <div className="flex">
-          <h1 className="text-2xl font-bold">{currentUser.displayName}</h1>
+          <Link to="/">
+            <h1 className="text-2xl font-bold">{currentUser.displayName} </h1>
+          </Link>
         </div>
         <div ref={imageRef} onClick={onProfileClick} className="ml-auto">
           <img
