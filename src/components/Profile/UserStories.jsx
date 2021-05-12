@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserProvider";
 import { db } from "../../services/firebase";
+import { FaTrash } from "react-icons/fa";
+import firebase from "firebase/app";
 
 const UserStories = () => {
   const [stories, setStories] = useState([]);
@@ -24,9 +26,26 @@ const UserStories = () => {
       });
   }, [currentUser]);
 
-  if (stories) {
-    console.log(stories);
-  }
+  const handleDelete = (idx, title, story, name) => {
+    const updatedStories = [];
+    stories.forEach((story, index) => {
+      if (index !== idx) {
+        updatedStories.push(story);
+      }
+    });
+    const docRef = db.collection("users").doc(currentUser.email);
+
+    docRef.update({
+      stories: firebase.firestore.FieldValue.arrayRemove({
+        title,
+        story,
+        name,
+      }),
+    });
+
+    setStories(updatedStories);
+  };
+
   return (
     <>
       <div className="mt-8 md:mt-16">
@@ -45,24 +64,36 @@ const UserStories = () => {
           {stories.map((item, idx) => {
             const { title, story } = item;
             return (
-              <Link
+              <div
                 key={idx}
-                to={{
-                  pathname: `/${currentUser.displayName}/${title}`,
-                  state: {
-                    title,
-                    story,
-                    name: currentUser.displayName,
-                  },
-                }}
+                className="w-11/12 mx-auto bg-white rounded-1xl shadow-xl rounded-lg mb-6 justify-between p-2 cursor-pointer md:w-2/4"
               >
-                <div className="w-11/12 mx-auto bg-white rounded-1xl shadow-xl rounded-lg hover:shadow-2xl mb-6 justify-between p-2 cursor-pointer md:w-2/4">
-                  <h2 className="text-lg font-bold">{title}</h2>
-                  <p className="mt-2 text-gray-700 md:mt-4">
-                    {story.substr(0, 100)}...
-                  </p>
+                <div className="flex">
+                  <Link
+                    to={{
+                      pathname: `/${currentUser.displayName}/${title}`,
+                      state: {
+                        title,
+                        story,
+                        name: currentUser.displayName,
+                      },
+                    }}
+                  >
+                    <h2 className="text-lg font-bold hover:text-blue-400">
+                      {title}
+                    </h2>
+                  </Link>
+                  <FaTrash
+                    className="ml-auto hover:text-red-400"
+                    onClick={() =>
+                      handleDelete(idx, title, story, currentUser.displayName)
+                    }
+                  />
                 </div>
-              </Link>
+                <p className="mt-2 text-gray-700 md:mt-4">
+                  {story.substr(0, 100)}...
+                </p>
+              </div>
             );
           })}
         </div>

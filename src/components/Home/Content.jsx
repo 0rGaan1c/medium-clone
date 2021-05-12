@@ -6,13 +6,13 @@ const Content = () => {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    db.collection("allStories")
+    db.collection("users")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const data = { ...doc.data() };
+          const data = [...doc.data().stories];
           setStories((prevState) => {
-            return [...prevState, data];
+            return [...prevState, ...data];
           });
         });
       });

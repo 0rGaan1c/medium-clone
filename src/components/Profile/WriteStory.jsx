@@ -34,39 +34,24 @@ const WriteStory = () => {
       return;
     }
 
-    // personal user blogs
-    // db.collection("users")
-    //   .add({
-    //     [currentUser.email]: [
-    //       {
-    //         name: currentUser.displayName,
-    //         title: titleRef.current.value,
-    //         story: storyRef.current.value,
-    //       },
-    //     ],
-    //   })
-    //   .then((docRef) => {
-    //     console.log("Document written with id: ", docRef.id);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error adding document: ", error);
-    //   });
-
     // array thing -- it's working, meaning data is stored as I want it
     // only reading remians
     const docRef = db.collection("users").doc(currentUser.email);
 
     docRef.get().then((doc) => {
       if (doc.exists) {
-        console.log("Exists");
         docRef.update({
-          stories: firebase.firestore.FieldValue.arrayUnion({ title, story }),
+          stories: firebase.firestore.FieldValue.arrayUnion({
+            title,
+            story,
+            name,
+          }),
         });
       } else {
         docRef.set({
-          name,
           stories: [
             {
+              name,
               title,
               story,
             },
@@ -74,20 +59,6 @@ const WriteStory = () => {
         });
       }
     });
-
-    // all blogs for the main page
-    db.collection("allStories")
-      .add({
-        name,
-        title,
-        story,
-      })
-      .then((docRef) => {
-        console.log("docRef: ", docRef.id);
-      })
-      .catch((error) => {
-        console.log("Error adding document: ", error);
-      });
 
     titleRef.current.value = "";
 
