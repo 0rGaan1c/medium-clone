@@ -1,5 +1,5 @@
 # Medium Clone
-*[](./screenshot.png)
+![alt text](./screenshot.png)
 
 
 * [Live Demo](https://medium-clone-dev-e3730.web.app/)
