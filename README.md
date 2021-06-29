@@ -7,7 +7,7 @@
 * I learned a lot of new things while building this project.
 * This is my first project in React, so there are probably many bugs in code, if you find any, please let me know.
 
-## Tool Stack
+## Tech Stack
 * React
 * Firebase
 * TailwindCSS
