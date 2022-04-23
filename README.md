@@ -1,11 +1,14 @@
-# Medium Clone
+## Medium Clone - [Live Demo](https://medium-clone-dev-e3730.web.app/)
+
+- A simple clone of popular blogging site medium built using React.js, and Firebase.
+- Implemented user authentication using Firebase.
+- Stored user's data and blogs data in Firestore.
+
+**Features**
+- User can write blogs and can also delete blogs that are written by them.
+- Users can also read the blogs that are written by other users.
+
 ![alt text](./screenshot.png)
-
-
-* [Live Demo](https://medium-clone-dev-e3730.web.app/)
-* Calling it a medium clone is an exaggeration, it's just a simple website where users can login using Google and can write stories (or blogs, I am just calling them stories).
-* I learned a lot of new things while building this project.
-* This is my first project in React, so there are probably many bugs in code, if you find any, please let me know.
 
 ## Tech Stack
 * React
